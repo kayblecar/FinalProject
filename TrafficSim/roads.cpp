@@ -2,56 +2,55 @@
 
 
 
-Road::Road()
+Road::Road(int l, int c)
 {
+	length = l;
+	capacity = c;
 }
 
 Road::~Road()
 {
 }
 
+Resident* Road::pop(int clock)
+{
+	Resident* me = drivers.front();
+	drivers.pop();
+	int t = clock - me->timeIn; //total time in road
+	me->travelTime += t; //update wait time
+	return me;
+}
+
+
 Resident* Road::front()
 {
 	return drivers.front();
 }
 
-ResidentialRoad::ResidentialRoad()
+void Road::update(int clock)
 {
 
+}
+
+ResidentialRoad::ResidentialRoad() : Road(0,0)
+{
+	
 }
 
 ResidentialRoad ::~ResidentialRoad()
 {
+
 }
+
 
 void ResidentialRoad::update(int clock)
 {
 
 }
 
-Resident* ResidentialRoad::pop(int clock)
+EntryRoad::EntryRoad(int l, int c, ResidentialRoad* src):Road(l,c)
 {
-	Resident* me = drivers.front();
-	drivers.pop();
-	int t = clock - me->timeIn; //total time in residential road
-	me->travelTime += t; //update wait time
-	return me;
-
-}
-
-void ResidentialRoad::reserve()
-{
-	//increase capacity of road as necessary
-}
-
-void ResidentialRoad::update(int clock)
-{
-
-}
-
-EntryRoad::EntryRoad()
-{
-
+	sourceRoad = src;
 }
 
 EntryRoad :: ~EntryRoad()
@@ -59,23 +58,23 @@ EntryRoad :: ~EntryRoad()
 
 }
 
-Resident * EntryRoad::pop(int clock)
-{
-
-}
 
 void EntryRoad::update(int clock)
 {
-	Resident* me = sourceRoad->front();
-	if (me->timeHere < clock - me->timeIn)
-	{
-		//pop
-	}
+	bool done = false;
+	while (!done && drivers.size() < capacity) {
+		Resident* me = sourceRoad->front();
+		if (me->timeHere < clock - me->timeIn) //if resident has been on road long enough
+		{
+			drivers.push(sourceRoad->pop(clock));
+		}
+		else done = true;
+	};
 }
 
-DestRoad::DestRoad()
+DestRoad::DestRoad(int l, int c, EntryRoad* src):Road(l,c)
 {
-
+	source = src;
 }
 
 DestRoad:: ~DestRoad()
@@ -83,12 +82,16 @@ DestRoad:: ~DestRoad()
 
 }
 
-Resident * DestRoad::pop(int clock)
-{
-
-}
 
 void DestRoad::update(int clock)
 {
-
-}
+	bool done = false;
+	while (!done && drivers.size() < capacity) {
+		Resident* me = source->front();
+		if (me->timeHere < clock - me->timeIn) //if resident has been on road long enough
+			{
+				drivers.push(source->pop(clock));
+			}
+			else done = true;
+		} ;
+	}
