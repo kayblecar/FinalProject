@@ -6,21 +6,23 @@
 
 class Road
 {
-private:
+protected:
 	std::queue<Resident*> drivers;
+private:
 	int length;
 	int capacity;
-	virtual Resident * pop();
+	virtual Resident* pop(int clock);
 public:
 	Road();
 	~Road();
+	Resident* front();
 	virtual void update(int clock);
 };
 
 class ResidentialRoad :public Road
 {
 private:
-	Resident * pop();
+	Resident* pop(int clock);
 	void reserve();
 public:
 	ResidentialRoad();
@@ -33,7 +35,7 @@ class EntryRoad : public Road
 {
 private:
 	ResidentialRoad* sourceRoad;
-	Resident * pop();
+	Resident* pop(int clock);
 
 public:
 	EntryRoad();
@@ -46,9 +48,9 @@ class DestRoad :public Road
 {
 private:
 	EntryRoad* source;
-	Resident * pop();
+	Resident* pop(int clock);
 public:
 	DestRoad();
 	~DestRoad();
-	void update();
+	void update(int clock);
 };

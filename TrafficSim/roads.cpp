@@ -10,10 +10,14 @@ Road::~Road()
 {
 }
 
-
+Resident* Road::front()
+{
+	return drivers.front();
+}
 
 ResidentialRoad::ResidentialRoad()
 {
+
 }
 
 ResidentialRoad ::~ResidentialRoad()
@@ -25,9 +29,13 @@ void ResidentialRoad::update(int clock)
 
 }
 
-Resident * ResidentialRoad::pop()
+Resident* ResidentialRoad::pop(int clock)
 {
-	//update wait time etc
+	Resident* me = drivers.front();
+	drivers.pop();
+	int t = clock - me->timeIn; //total time in residential road
+	me->travelTime += t; //update wait time
+	return me;
 
 }
 
@@ -51,14 +59,18 @@ EntryRoad :: ~EntryRoad()
 
 }
 
-Resident * EntryRoad::pop()
+Resident * EntryRoad::pop(int clock)
 {
 
 }
 
 void EntryRoad::update(int clock)
 {
-
+	Resident* me = sourceRoad->front();
+	if (me->timeHere < clock - me->timeIn)
+	{
+		//pop
+	}
 }
 
 DestRoad::DestRoad()
@@ -71,7 +83,7 @@ DestRoad:: ~DestRoad()
 
 }
 
-Resident * DestRoad::pop()
+Resident * DestRoad::pop(int clock)
 {
 
 }
