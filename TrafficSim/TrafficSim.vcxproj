@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="roads.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Building.h" />
