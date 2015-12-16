@@ -12,7 +12,7 @@ class Simulation {
 private:
 	Building* school;
 	Building* bank;
-	vector<Resident*>residents; //FIXME: set?
+	vector<Resident*>residents; //FIXME: map? name and resident
 	ResidentialRoad* toJackson;
 	ResidentialRoad* toTravis;
 	EntryRoad* Jackson;
@@ -29,6 +29,8 @@ private:
 public:
 	Simulation();
 	void run();
+	//FIXME:Menu on finish
+		//FIXME: search resident(map search)
 };
 
 #endif

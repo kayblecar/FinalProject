@@ -109,5 +109,4 @@ void Simulation::run()
 
 	cout << "Average travel time: " << totalTravelTime / totalVisits << endl;
 
-	//menu
 }
