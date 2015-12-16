@@ -3,7 +3,7 @@
 
 #include <queue>
 #include "Resident.h"
-#include "Building.h"
+#include <string>
 using namespace std;
 
 
@@ -48,9 +48,9 @@ class DestRoad :public Road
 {
 private:
 	EntryRoad* source;
-	Building * dest;
+	string dest;//Bedford:changed dest to string
 public:
-	DestRoad(int l, int c, EntryRoad* src, Building* d);
+	DestRoad(int l, int c, EntryRoad* src, string d);
 	~DestRoad();
 	void update(int clock);
 };
