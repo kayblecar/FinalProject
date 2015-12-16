@@ -60,26 +60,27 @@ void Simulation::run()
 	for (clock = 1; clock < 10080; clock++)
 	{
 		//add new resident per statistics
-		//FIXME: use avg visitor
-		do {
-			me = residents[rand() % residents.size()];
-		} while (me->travelTime != -1);
+		int chance = rand() % 60;
+		if (chance < visitorsPHour) {
+			do {
+				me = residents[rand() % residents.size()];
+			} while (me->travelTime != -1);
 
-		me->speed = 25 + rand() % 11;
-		me->travelTime = 0;
-		int chance = rand() % 100 + 1;
-		if (chance <= 30)
-			me->destination = bank;
-		else
-			me->destination = school;
+			me->speed = 25 + rand() % 11;
+			me->travelTime = 0;
+			chance = rand() % 100 + 1;
+			if (chance <= 30)
+				me->destination = bank->getName();
+			else
+				me->destination = school->getName();
 
-		//add to one of the residential roads
-		chance = rand() % 2;
-		if (chance == 0)
-			toTravis->enter(clock, me);
-		else
-			toJackson->enter(clock, me);
-
+			//add to one of the residential roads
+			chance = rand() % 2;
+			if (chance == 0)
+				toTravis->enter(clock, me);
+			else
+				toJackson->enter(clock, me);
+		}
 
 		//update from building backwards
 		//FIXME: use other method to reference totals
