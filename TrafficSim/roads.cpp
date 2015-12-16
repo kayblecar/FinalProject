@@ -111,5 +111,6 @@ void DestRoad::update(int clock)
 			}
 			else done = true;
 		}
+		else done = true;
 	}
 } 

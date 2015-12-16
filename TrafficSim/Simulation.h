@@ -25,6 +25,7 @@ private:
 	int clock;
 	int totalVisits;
 	int totalTravelTime;
+	int inTown;
 public:
 	Simulation();
 	void run();

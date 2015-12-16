@@ -17,11 +17,14 @@ private:
 	DestRoad* sources[2];
 
 public:
-	Building(string n, int min, int max, DestRoad *src1, DestRoad *src2)
+	Building(string n, int min, int max)
 	{
 		name = n;
 		minVisit = min;
 		maxVisit = max;
+	}
+	void setSources(DestRoad *src1, DestRoad *src2)
+	{
 		sources[0] = src1;
 		sources[1] = src2;
 	}
