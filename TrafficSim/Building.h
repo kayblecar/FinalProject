@@ -7,7 +7,7 @@ using namespace std;
 class Building
 {
 private:
-	string name;
+	//string name? then getname()
 	vector <Resident*> visitor;
 	int minVisit;
 	int maxVisit;
@@ -22,7 +22,7 @@ public:
 		sources[1] = src2;
 	}
 	int getWait();
-	string getname() { return name; }
+
 	//FIXME: update totals, set travel tim -1
 	void update(int clock, Simulation *sim);
 };

@@ -5,7 +5,7 @@ using namespace std;
 
 Simulation::Simulation()
 {
-	school = new Building(5, 10, Tulip, Birch); //FIXME need to update constructor
+	school = new Building(5, 10, Tulip, Birch);
 	bank = new Building(10, 20, Amber, James);
 
 	//FIXME: read residents from file
@@ -39,7 +39,7 @@ Simulation::Simulation()
 	toTravis = new ResidentialRoad();
 	Travis = new EntryRoad(3, tra, toTravis);
 	Jackson = new EntryRoad(3, jack, toJackson);
-	Tulip = new DestRoad(3, tul, Jackson, school);//FIXME school.getname() etc
+	Tulip = new DestRoad(3, tul, Jackson, school);
 	Amber = new DestRoad(6, amb, Jackson, bank);
 	James = new DestRoad(4, jam, Travis, bank);
 	Birch = new DestRoad(5, bir, Travis, school);
