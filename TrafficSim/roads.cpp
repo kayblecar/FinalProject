@@ -1,5 +1,5 @@
 #include "Road.h"
-
+using namespace std;
 
 
 Road::Road(int l, int c)
@@ -42,6 +42,11 @@ ResidentialRoad ::~ResidentialRoad()
 
 }
 
+void ResidentialRoad::enter(int clock, Resident* me)
+{
+	drivers.push(me);
+	me->timeIn = clock;
+}
 
 void ResidentialRoad::update(int clock)
 {
@@ -67,14 +72,19 @@ void EntryRoad::update(int clock)
 		if (me->timeHere < clock - me->timeIn) //if resident has been on road long enough
 		{
 			drivers.push(sourceRoad->pop(clock));
+			me->timeIn = clock;
+			me->timeHere = me->speed * length;
 		}
 		else done = true;
 	};
 }
 
-DestRoad::DestRoad(int l, int c, EntryRoad* src):Road(l,c)
+//FIXME: change dest. to string?
+
+DestRoad::DestRoad(int l, int c, EntryRoad* src, Building *d):Road(l,c)
 {
 	source = src;
+	dest = d;
 }
 
 DestRoad:: ~DestRoad()
@@ -88,10 +98,14 @@ void DestRoad::update(int clock)
 	bool done = false;
 	while (!done && drivers.size() < capacity) {
 		Resident* me = source->front();
-		if (me->timeHere < clock - me->timeIn) //if resident has been on road long enough
+		if (me->destination = dest) {
+			if (me->timeHere < clock - me->timeIn) //if resident has been on road long enough
 			{
 				drivers.push(source->pop(clock));
+				me->timeIn = clock;
+				me->timeHere = me->speed * length;
 			}
 			else done = true;
+		}
 		} ;
 	}

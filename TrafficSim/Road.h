@@ -1,15 +1,17 @@
-#include <iostream>
+#ifndef _ROAD_H_
+#define _ROAD_H_
+
 #include <queue>
 #include "Resident.h"
-
+#include "Building.h"
+using namespace std;
 
 
 class Road
 {
 protected:
-	std::queue<Resident*> drivers;
+	queue<Resident*> drivers;
 	int capacity;
-private:
 	int length;
 
 public:
@@ -26,6 +28,7 @@ public:
 	ResidentialRoad();
 	~ResidentialRoad();
 	void update(int clock);
+	void enter(int clock, Resident * me);
 
 };
 
@@ -40,13 +43,15 @@ public:
 	void update(int clock);
 
 };
-
+//FIXME: change dest. to string?
 class DestRoad :public Road
 {
 private:
 	EntryRoad* source;
+	Building * dest;
 public:
-	DestRoad(int l, int c, EntryRoad* src);
+	DestRoad(int l, int c, EntryRoad* src, Building* d);
 	~DestRoad();
 	void update(int clock);
 };
+#endif
