@@ -43,7 +43,6 @@ public:
 	void update(int clock);
 
 };
-//FIXME: change dest. to string?
 class DestRoad :public Road
 {
 private:

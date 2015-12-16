@@ -6,7 +6,6 @@
 #include <map>
 using namespace std;
 
-//FIXME: change dest. to string?
 
 struct Resident
 {
