@@ -17,7 +17,7 @@ void Building::update(int clock, Simulation *sim)
 		bool done = false;
 		do {
 			me = source->front();
-			if (me->timeHere < clock - me->timeIn) //if resident has been on road long enough
+			if (me->timeHere < clock - me->timeIn) //if resident has been on road long enough, add it to residents in building
 			{
 				visitor.push_back(source->pop(clock));
 				me->timeIn = clock;
@@ -30,18 +30,18 @@ void Building::update(int clock, Simulation *sim)
 	int addVisits = 0;
 	int addTime = 0;
 
-	for (int i = 0; i < visitor.size(); i++)
+	for (int i = 0; i < visitor.size(); i++)//check each resident to see if they have been in building long enough
 	{
 		me = visitor[i];
 		if (me->timeHere >= clock - me->timeIn)
 		{
 			visitor.erase(visitor.begin() + i);
 			//finalize info for "me"
-			me->pastDestinations.push_back(this);
+			me->pastDestinations.insert(pair<string, int>(me->destination, me->travelTime));
 			me->visits++;
 			addVisits++;
 			addTime += me->travelTime;
-
+			me->travelTime = -1;
 		}
 
 	}
