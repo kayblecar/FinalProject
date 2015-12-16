@@ -9,18 +9,20 @@ int Building::getWait()
 
 void Building::update(int clock, int & time, int & visits)
 {
-	Resident *me;
 	for (int i = 0; i <= 1; i++)
 	{
 		DestRoad *source = sources[i];
 		bool done = false;
 		do {
-			me = source->front();
-			if (me->timeHere < clock - me->timeIn) //if resident has been on road long enough, add it to residents in building
-			{
-				visitor.push_back(source->pop(clock));
-				me->timeIn = clock;
-				me->timeHere = this->getWait();
+			if (source->isOccupied()) {
+				Resident *me = source->front();
+				if (me->timeHere < clock - me->timeIn) //if resident has been on road long enough, add it to residents in building
+				{
+					visitor.push_back(source->pop(clock));
+					me->timeIn = clock;
+					me->timeHere = this->getWait();
+				}
+				else done = true;
 			}
 			else done = true;
 		} while (!done);
@@ -28,7 +30,7 @@ void Building::update(int clock, int & time, int & visits)
 
 	for (int i = 0; i < visitor.size(); i++)//check each resident to see if they have been in building long enough
 	{
-		me = visitor[i];
+		Resident *me = visitor[i];
 		if (me->timeHere >= clock - me->timeIn)
 		{
 			visitor.erase(visitor.begin() + i);

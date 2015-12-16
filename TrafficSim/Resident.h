@@ -17,7 +17,7 @@ struct Resident
 	int timeHere = 0; //calculated (minimum) time for resident to be in current location
 	int visits = 0;
 	multimap <string, int> pastDestinations;//building names, time it took to go there
-
+	Resident(string n) { name = n; }
 };
 
 #endif	

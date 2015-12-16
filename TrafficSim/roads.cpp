@@ -68,12 +68,15 @@ void EntryRoad::update(int clock)
 {
 	bool done = false;
 	while (!done && drivers.size() < capacity) {
-		Resident* me = sourceRoad->front();
-		if (me->timeHere < clock - me->timeIn) //if resident has been on road long enough
-		{
-			drivers.push(sourceRoad->pop(clock));
-			me->timeIn = clock;
-			me->timeHere = me->speed * length;
+		if (sourceRoad->isOccupied()) {
+			Resident* me = sourceRoad->front();
+			if (me->timeHere < clock - me->timeIn) //if resident has been on road long enough
+			{
+				drivers.push(sourceRoad->pop(clock));
+				me->timeIn = clock;
+				me->timeHere = me->speed * length;
+			}
+			else done = true;
 		}
 		else done = true;
 	};
@@ -95,15 +98,18 @@ void DestRoad::update(int clock)
 {
 	bool done = false;
 	while (!done && drivers.size() < capacity) {
-		Resident* me = source->front();
-		if (me->destination == dest) {//Bedford: needed second equal sign 
-			if (me->timeHere < clock - me->timeIn) //if resident has been on road long enough
-			{
-				drivers.push(source->pop(clock));
-				me->timeIn = clock;
-				me->timeHere = me->speed * length;
+		if (source->isOccupied()) {
+			Resident* me = source->front();
+			if (me->destination == dest) {//Bedford: needed second equal sign 
+				if (me->timeHere < clock - me->timeIn) //if resident has been on road long enough
+				{
+					drivers.push(source->pop(clock));
+					me->timeIn = clock;
+					me->timeHere = me->speed * length;
+				}
+				else done = true;
 			}
 			else done = true;
 		}
-		} ;
 	}
+} 

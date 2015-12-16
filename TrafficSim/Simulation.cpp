@@ -6,11 +6,12 @@ using namespace std;
 
 Simulation::Simulation()
 {
+	cout << "Starting" << endl;
+
 	school = new Building("school", 5, 10, Tulip, Birch);
 	bank = new Building("bank", 10, 20, Amber, James);
 
 
-	Resident *me = {};
 	//read residents from file
 	string word ("");
 	ifstream resList("residents_273ville.txt");
@@ -18,8 +19,8 @@ Simulation::Simulation()
 	{
 
 		resList >> word;
-		me->name = word; //not happy?
-		residents.push_back(me);
+		cout << word << endl;
+		residents.push_back(new Resident(word));
 
 	};
 

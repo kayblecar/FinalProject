@@ -10,7 +10,7 @@ using namespace std;
 class Road
 {
 protected:
-	queue<Resident*> drivers;
+	queue <Resident*> drivers;
 	int capacity;
 	int length;
 
@@ -19,6 +19,12 @@ public:
 	~Road();
 	Resident* front();
 	Resident* pop(int clock);
+	bool isOccupied() {
+		if (drivers.empty())
+			return false;
+		else
+			return true;
+	}
 	virtual void update(int clock);
 };
 
