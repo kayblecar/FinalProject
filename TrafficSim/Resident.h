@@ -3,7 +3,7 @@
 
 #include<iostream>
 #include<string>
-#include "Building.h"
+#include <map>
 using namespace std;
 
 //FIXME: change dest. to string?
@@ -11,13 +11,13 @@ using namespace std;
 struct Resident
 {
 	string name;
-	Building *destination; //string
+	string destination;
 	int speed;
 	int travelTime = -1; //total travel time for current visit. =-1 if not currently in town
 	int timeIn; //time resident entered current location
 	int timeHere; //calculated (minimum) time for resident to be in current location
-	int visits; //change these to multimap
-	vector<Building*> pastDestinations; //string
+	int visits;
+	multimap <string, int> pastDestinations;
 
 };
 
