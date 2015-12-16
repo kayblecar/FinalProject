@@ -81,7 +81,7 @@ void EntryRoad::update(int clock)
 
 //FIXME: change dest. to string?
 
-DestRoad::DestRoad(int l, int c, EntryRoad* src, Building *d):Road(l,c)
+DestRoad::DestRoad(int l, int c, EntryRoad* src, string d):Road(l,c)//Bedford: changed d to string so it can be set equal to dest
 {
 	source = src;
 	dest = d;
