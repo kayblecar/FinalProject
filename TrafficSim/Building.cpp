@@ -7,8 +7,7 @@ int Building::getWait()
 	return wait;
 }
 
-//FIXME: update totals, reset resident travel time -1
-void Building::update(int clock, Simulation *sim)
+void Building::update(int clock, int & time, int & visits)
 {
 	Resident *me;
 	for (int i = 0; i <= 1; i++)
@@ -27,9 +26,6 @@ void Building::update(int clock, Simulation *sim)
 		} while (!done);
 	}
 
-	int addVisits = 0;
-	int addTime = 0;
-
 	for (int i = 0; i < visitor.size(); i++)//check each resident to see if they have been in building long enough
 	{
 		me = visitor[i];
@@ -39,8 +35,8 @@ void Building::update(int clock, Simulation *sim)
 			//finalize info for "me"
 			me->pastDestinations.insert(pair<string, int>(me->destination, me->travelTime));
 			me->visits++;
-			addVisits++;
-			addTime += me->travelTime;
+			visits++; //updates simulation visits and total time
+			time += me->travelTime;
 			me->travelTime = -1;
 		}
 

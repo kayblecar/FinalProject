@@ -27,8 +27,7 @@ public:
 	}
 	int getWait();
 	string getName() { return name; }
-	//FIXME: update totals
-	void update(int clock, Simulation *sim);
+	void update(int clock, int & time, int & visits);
 };
 
 #endif

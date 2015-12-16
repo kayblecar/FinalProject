@@ -12,7 +12,7 @@ class Simulation {
 private:
 	Building* school;
 	Building* bank;
-	vector<Resident*>residents; //FIXME: map w/ resident index + pt to some record class
+	vector<Resident*>residents; //FIXME: set?
 	ResidentialRoad* toJackson;
 	ResidentialRoad* toTravis;
 	EntryRoad* Jackson;
@@ -27,7 +27,6 @@ private:
 	int totalTravelTime;
 public:
 	Simulation();
-	void updateTotals(int visits, int time);
 	void run();
 };
 

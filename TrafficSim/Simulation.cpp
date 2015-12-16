@@ -1,5 +1,6 @@
 #include "Simulation.h"
 #include <fstream>
+#include <iostream>
 #include <string>
 using namespace std;
 
@@ -8,14 +9,16 @@ Simulation::Simulation()
 	school = new Building("school", 5, 10, Tulip, Birch);
 	bank = new Building("bank", 10, 20, Amber, James);
 
-	//FIXME: read residents from file
-	string name;
-	Resident * me;
-	ifstream resList("residents.txt");
+
+	Resident *me = {};
+	//read residents from file
+	string word ("");
+	ifstream resList("residents_273ville.txt");
 	while (!resList.eof())
 	{
-		resList >> name;
-		me->name = name;
+
+		resList >> word;
+		me->name = word; //not happy?
 		residents.push_back(me);
 
 	};
@@ -83,9 +86,8 @@ void Simulation::run()
 		}
 
 		//update from building backwards
-		//FIXME: use other method to reference totals
-		school->update(clock, this);
-		bank->update(clock, this);
+		school->update(clock, totalTravelTime, totalVisits);
+		bank->update(clock, totalTravelTime, totalVisits);
 
 		Tulip->update(clock);
 		Amber->update(clock);
@@ -95,10 +97,6 @@ void Simulation::run()
 		Travis->update(clock);
 
 	}
-}
 
-void Simulation::updateTotals(int visits, int time)
-{
-	totalVisits += visits;
-	totalTravelTime += time;
+	cout << "Average travel time: " << totalTravelTime / totalVisits << endl;
 }
