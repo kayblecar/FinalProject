@@ -50,7 +50,7 @@ private:
 	EntryRoad* source;
 	string dest;//Bedford:changed dest to string
 public:
-	DestRoad(int l, int c, EntryRoad* src, string d);
+	DestRoad(int l, int c, EntryRoad* src, string d);//Bedford:changed d to string 
 	~DestRoad();
 	void update(int clock);
 };
