@@ -96,7 +96,7 @@ void DestRoad::update(int clock)
 	bool done = false;
 	while (!done && drivers.size() < capacity) {
 		Resident* me = source->front();
-		if (me->destination = dest) {
+		if (me->destination == dest) {//Bedford: needed second equal sign 
 			if (me->timeHere < clock - me->timeIn) //if resident has been on road long enough
 			{
 				drivers.push(source->pop(clock));
