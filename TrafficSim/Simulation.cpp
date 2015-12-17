@@ -105,7 +105,29 @@ void Simulation::run()
 		Jackson->update(clock);
 		Travis->update(clock);
 	}
-
+	//Finishing information
 	cout << "Average travel time: " << totalTravelTime / totalVisits << endl;
+	string choice;
+	cout << "Would you like to view residents? (yes or no)" << endl;
+	cin >> choice;
+	if (choice == "yes" || choice == "Yes") {
+		for (map<string, Resident*>::iterator it = haveVisited.begin(); it != haveVisited.end(); ++it) {
+			cout << it->first << endl;
+			
+		}
+		cout << "Enter name: ";
+		string n;
+		cin >> n;
+		Resident *me = haveVisited.find(n)->second;
+		for (map<string, int>::iterator it = me->pastDestinations.begin(); it != me->pastDestinations.end();++it) {
+			cout << "Went to " << it->first << " it took " << it->second << " minutes" << endl;
+		}
+	}
+	else if (choice == "no" || choice == "No") {
+		cout << "Goodbye, Have a fantabulous day! :)" << endl;
+	}
+	
+
+
 
 }
