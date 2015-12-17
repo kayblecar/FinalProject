@@ -41,7 +41,7 @@ void Building::update(int clock, int & time, int & visits, map<string, Resident*
 			time += me->travelTime;
 			me->travelTime = -1;
 
-			if (true)//"name" is not in map)
+			if (visited.count(me->name) == 0)//name is not in map)
 			{
 				visited.insert(pair<string, Resident*>(me->name, me));
 			}
