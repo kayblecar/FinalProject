@@ -6,7 +6,6 @@ using namespace std;
 
 Simulation::Simulation()
 {
-	cout << "Starting" << endl;
 
 	school = new Building("school", 5, 10);
 	bank = new Building("bank", 10, 20);
@@ -96,8 +95,8 @@ void Simulation::run()
 			cout << "No one came to town in minute " << clock << " because Everyone was in town." << endl;
 
 		//update from building backwards
-		school->update(clock, totalTravelTime, totalVisits);
-		bank->update(clock, totalTravelTime, totalVisits);
+		school->update(clock, totalTravelTime, totalVisits, haveVisited);
+		bank->update(clock, totalTravelTime, totalVisits, haveVisited);
 
 		Tulip->update(clock);
 		Amber->update(clock);

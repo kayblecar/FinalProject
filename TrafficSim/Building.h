@@ -30,7 +30,7 @@ public:
 	}
 	int getWait();
 	string getName() { return name; }
-	void update(int clock, int & time, int & visits);
+	void update(int clock, int & time, int & visits, map<string, Resident*> &visited);
 };
 
 #endif

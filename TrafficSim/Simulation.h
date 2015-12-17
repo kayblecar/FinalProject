@@ -5,6 +5,7 @@
 #include "Building.h"
 #include "Resident.h"
 #include "Road.h"
+#include <map>
 #include <vector>
 using namespace std;
 
@@ -12,7 +13,8 @@ class Simulation {
 private:
 	Building* school;
 	Building* bank;
-	vector<Resident*>residents; //FIXME: map? name and resident
+	vector<Resident*>residents; 
+	map<string, Resident*> haveVisited;
 	ResidentialRoad* toJackson;
 	ResidentialRoad* toTravis;
 	EntryRoad* Jackson;

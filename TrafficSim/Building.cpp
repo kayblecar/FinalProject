@@ -7,7 +7,7 @@ int Building::getWait()
 	return wait;
 }
 
-void Building::update(int clock, int & time, int & visits)
+void Building::update(int clock, int & time, int & visits, map<string, Resident*> &visited)
 {
 	for (int i = 0; i <= 1; i++)
 	{
@@ -40,6 +40,11 @@ void Building::update(int clock, int & time, int & visits)
 			visits++; //updates simulation visits and total time
 			time += me->travelTime;
 			me->travelTime = -1;
+
+			if (true)//"name" is not in map)
+			{
+				visited.insert(pair<string, Resident*>(me->name, me));
+			}
 		}
 
 	}
