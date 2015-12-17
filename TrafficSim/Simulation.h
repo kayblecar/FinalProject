@@ -28,11 +28,10 @@ private:
 	int totalVisits;
 	int totalTravelTime;
 	int inTown;
+	int townFull;
 public:
 	Simulation();
 	void run();
-	//FIXME:Menu on finish
-		//FIXME: search resident(map search)
 };
 
 #endif

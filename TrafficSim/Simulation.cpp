@@ -22,20 +22,48 @@ Simulation::Simulation()
 
 	};
 
-	//FIXME?: read road capacities from file instead of input
+	//possible improvement: read road capacities from file instead of input
 	int jack, tul, amb, tra, jam, bir;
-	cout << "Capacity for Travis: ";
-	cin >> tra;
-	cout << "Capacity for Jackson: ";
-	cin >> jack;
-	cout << "Capacity for Tulip: ";
-	cin >> tul;
-	cout << "Capacity for Amber: ";
-	cin >> amb;
-	cout << "Capacity for James: ";
-	cin >> jam;
-	cout << "Capacity for Birch: ";
-	cin >> bir;
+	do {
+		cout << "Capacity for Travis: ";
+		cin >> tra;
+		if (tra > 0)
+			break;
+	} while (true);
+	do {
+		cout << "Capacity for Jackson: ";
+		cin >> jack;
+		if (jack > 0)
+			break;
+	} while (true);
+	do
+	{
+		cout << "Capacity for Tulip: ";
+		cin >> tul;
+		if (tul > 0)
+			break;
+	} while (true);
+	do
+	{
+		cout << "Capacity for Amber: ";
+		cin >> amb;
+		if (amb > 0)
+			break;
+	} while (true);
+	do
+	{
+		cout << "Capacity for James: ";
+		cin >> jam;
+		if (jam > 0)
+			break;
+	} while (true);
+	do
+	{
+		cout << "Capacity for Birch: ";
+		cin >> bir;
+		if (bir > 0)
+			break;
+	} while (true);
 
 	toJackson = new ResidentialRoad();
 	toTravis = new ResidentialRoad();
@@ -49,13 +77,18 @@ Simulation::Simulation()
 	school->setSources(Tulip, Birch);
 	bank->setSources(Amber, James);
 
-	cout << "Visitors/Hour: ";
-	cin >> visitorsPHour;
+	do {
+		cout << "Visitors/Hour: ";
+		cin >> visitorsPHour;
+		if (visitorsPHour <= 60 && visitorsPHour > 0)
+			break;
+	} while (true);
 
 	clock = 0;
 	totalTravelTime = 0;
 	totalVisits = 0;
 	inTown = 0;
+	townFull = 0;
 
 }
 
@@ -92,7 +125,7 @@ void Simulation::run()
 			}
 		}
 		else
-			cout << "No one came to town in minute " << clock << " because Everyone was in town." << endl;
+			townFull++;
 
 		//update from building backwards
 		school->update(clock, totalTravelTime, totalVisits, haveVisited);
@@ -107,26 +140,37 @@ void Simulation::run()
 	}
 	//Finishing information
 	cout << "Average travel time: " << totalTravelTime / totalVisits << endl;
+	cout << "Please note: Residents did not enter town for " << townFull << " minutes because they were all already there!" << endl;
 	string choice;
-	cout << "Would you like to view residents? (yes or no)" << endl;
-	cin >> choice;
-	if (choice == "yes" || choice == "Yes") {
-		for (map<string, Resident*>::iterator it = haveVisited.begin(); it != haveVisited.end(); ++it) {
-			cout << it->first << endl;
-			
+	bool done = false;
+	do {
+		cout << "Would you like to view residents? (yes or no)" << endl;
+		cin >> choice;
+		if (choice == "yes" || choice == "Yes" || choice == "Y" || choice == "y") {
+			for (map<string, Resident*>::iterator it = haveVisited.begin(); it != haveVisited.end(); ++it) {
+				cout << it->first << endl;
+
+			}
+			do {
+				cout << "Enter name or 0: ";
+				string n;
+				cin >> n;
+				if (n == "0")//exit
+					done = true;
+				else if (haveVisited.count(n) != 0) {
+					Resident *me = haveVisited.find(n)->second;
+					for (map<string, int>::iterator it = me->pastDestinations.begin(); it != me->pastDestinations.end();++it) {
+						cout << "Went to " << it->first << " it took " << it->second << " minutes" << endl;
+					}
+				}
+			} while (!done);
+
 		}
-		cout << "Enter name: ";
-		string n;
-		cin >> n;
-		Resident *me = haveVisited.find(n)->second;
-		for (map<string, int>::iterator it = me->pastDestinations.begin(); it != me->pastDestinations.end();++it) {
-			cout << "Went to " << it->first << " it took " << it->second << " minutes" << endl;
+		else if (choice == "no" || choice == "No" || choice == "N" || choice == "n") {
+			cout << "Goodbye, Have a fantabulous day! :)" << endl;
+			done = true;
 		}
-	}
-	else if (choice == "no" || choice == "No") {
-		cout << "Goodbye, Have a fantabulous day! :)" << endl;
-	}
-	
+	} while (!done);
 
 
 

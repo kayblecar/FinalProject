@@ -10,7 +10,7 @@ using namespace std;
 class Road
 {
 protected:
-	queue <Resident*> drivers;
+	queue <Resident*> drivers;//Possible improvement: use priority queue to simulate multiple-lane road
 	int capacity;
 	int length;
 
